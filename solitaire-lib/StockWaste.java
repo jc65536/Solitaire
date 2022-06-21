@@ -29,8 +29,20 @@ public class StockWaste {
         }
     }
 
-    public Card take() {
-        return waste.pop();
+    public Card get() {
+        return waste.peek();
+    }
+
+    public void remove() {
+        waste.pop();
+    }
+
+    public void print() {
+        Iterator<Card> wasteIterator = waste.iterator();
+        for (int i = 0; i < 3 && wasteIterator.hasNext(); i++) {
+            System.out.print(wasteIterator.next() + " ");
+        }
+        System.out.println();
     }
 
     private Deque<Card> stock;

@@ -16,22 +16,26 @@ public class Foundations {
         }
     }
 
-    public boolean addCard(Card card, int destIndex) {
-        Deque<Card> pile = piles.get(destIndex);
-        if (!pile.isEmpty()) {
-            Card top = pile.peek();
+    public boolean add(Card card, int destIndex) {
+        Deque<Card> destPile = piles.get(destIndex);
+        if (!destPile.isEmpty()) {
+            Card top = destPile.peek();
             if (card.num - top.num != 1 || top.suit != card.suit) {
                 return false;
             }
         } else if (card.num != 1) {
             return false;
         }
-        pile.push(card);
+        destPile.push(card);
         return true;
     }
 
-    public Card takeCard(int srcIndex) {
-        return piles.get(srcIndex).pop();
+    public Card get(int srcIndex) {
+        return piles.get(srcIndex).peek();
+    }
+
+    public void remove(int srcIndex) {
+        piles.get(srcIndex).pop();
     }
 
     public boolean checkWin() {
@@ -41,6 +45,13 @@ public class Foundations {
             }
         }
         return true;
+    }
+
+    public void print() {
+        for (Deque<Card> pile : piles) {
+            System.out.print(pile.peek() + " ");
+        }
+        System.out.println();
     }
 
     private final List<Deque<Card>> piles;

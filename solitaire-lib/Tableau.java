@@ -30,9 +30,18 @@ public class Tableau {
         return canAdd(card, destPile) && destPile.add(card);
     }
 
-    public Card take(int srcIndex) {
+    public Card get(int srcIndex) {
         List<Card> srcPile = piles.get(srcIndex);
-        return srcPile.remove(srcPile.size() - 1);
+        return srcPile.get(srcPile.size() - 1);
+    }
+
+    public void remove(int srcIndex) {
+        List<Card> srcPile = piles.get(srcIndex);
+        int cardIndex = srcPile.size() - 1;
+        srcPile.remove(cardIndex);
+        if (cardIndex == firstFaceUp[srcIndex]) {
+            firstFaceUp[srcIndex]--;
+        }
     }
 
     public boolean move(int srcIndex, int headIndex, int destIndex) {
@@ -51,6 +60,21 @@ public class Tableau {
             return true;
         }
         return false;
+    }
+
+    public void print() {
+        for (int i = 0; i < 7; i++) {
+            System.out.print(i + ": ");
+            int j = 0;
+            for (; j < firstFaceUp[i]; j++) {
+                System.out.print("?? ");
+            }
+            List<Card> pile = piles.get(i);
+            for (; j < pile.size(); j++) {
+                System.out.print(pile.get(j) + " ");
+            }
+            System.out.println();
+        }
     }
 
     private boolean canAdd(Card card, List<Card> destPile) {
